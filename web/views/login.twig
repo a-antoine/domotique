@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Authentification</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" href="/favicon.ico">
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/login.css">
+</head>
+<body>
+    <div class="container">
+        {% if error is defined %}
+        <div class="alert alert-danger alert-dismissible" role="alert">
+            <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <strong>Erreur !</strong> {{ error }}
+        </div>
+        {% endif %}
+        <form class="form-signin" action="/login" method="post">
+            <h2 class="form-signin-heading">Authentification</h2>
+            <label for="username" class="sr-only">Identifiant</label>
+            <input type="text" id="username" name="username" class="form-control" placeholder="Identifiant" required autofocus>
+            <label for="password" class="sr-only">Mot de passe</label>
+            <input type="password" id="password" name="password" class="form-control" placeholder="Mot de passe" required>
+            <button class="btn btn-lg btn-primary btn-block" type="submit">Connexion</button>
+        </form>
+    </div>
+    <script src="/js/jquery-1.11.3.min.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
+</body>
+</html>

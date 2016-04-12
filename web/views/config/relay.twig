@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" href="/favicon.ico">
+    <title>Domotique</title>
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/css/bootstrap-theme.min.css" rel="stylesheet">
+    <link href="/css/dashboard.css" rel="stylesheet">
+</head>
+
+<body role="document">
+
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="/">Domotique</a>
+            </div>
+            <div id="navbar" class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li><a href="/">Accueil</a></li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Configuration <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li class="active"><a href="/config/relay">Relais</a></li>
+                            <li><a href="/config/temps">Températures</a></li>
+                            <li><a href="/config/scenario">Sénario</a></li>
+                            <li role="separator" class="divider"></li>
+                            <li><a href="/settings">Paramètres</a></li>
+                        </ul>
+                    </li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href="/disconnect">Déconnexion</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container theme-showcase" role="main">
+        <h1>Configuration des relais</h1>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Pin</th>
+                    <th>Nom</th>
+                    <th>Modifier</th>
+                    <th>Supprimer</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for relay in relays %}
+            <form action="relay/edit" method="post">
+                <input type="hidden" name="id" value="{{ relay.id }}" />
+                <tr>
+                    <td><select name="pin">
+                    {% for pin in 0..7 %}
+                        <option value="{{ pin }}" {% if pin == relay.pin %} selected {% endif %}>{{ pin }}</option>
+                    {% endfor %}
+                    </select></td>
+                    <td><input name="name" value="{{ relay.name }}" size="30" /></td>
+                    <td><button type="submit" class="btn btn-warning"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span> Modifier</button></td>
+                    <td><a href="/config/relay/delete/{{ relay.id }}" class="btn btn-danger"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span> Supprimer</a></td>
+                </tr>
+            </form>
+            {% endfor %}
+            </tbody>
+        </table>
+        <br/><hr/>
+        <h2>Nouveau relai</h2>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Pin</th>
+                    <th>Nom</th>
+                    <th>Nouveau</th>
+                </tr>
+            </thead>
+            <tbody>
+            <form action="relay/new" method="post">
+                <tr>
+                    <td><select name="pin">
+                    {% for pin in 0..7 %}
+                        <option value="{{ pin }}">{{ pin }}</option>
+                    {% endfor %}
+                    </select></td>
+                    <td><input name="name" size="30" /></td>
+                    <td><button type="submit" class="btn btn-success"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Nouveau</button></td>
+                </tr>
+            </form>
+            </tbody>
+        </table>
+
+    </div>
+
+    <script src="/js/jquery-1.11.3.min.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
+</body>
+</html>

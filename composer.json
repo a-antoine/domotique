@@ -1,0 +1,13 @@
+{
+    "autoload": {
+        "psr-0": {
+            "Domotique": "src"
+        }
+    },
+    "require": {
+        "silex/silex": "~1.3",
+        "twig/twig": "^1.18",
+        "cboden/ratchet": "^0.3.3",
+        "predis/predis": "^1.0"
+    }
+}

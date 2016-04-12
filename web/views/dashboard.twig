@@ -1,0 +1,102 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" href="/favicon.ico">
+    <title>Domotique</title>
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/css/bootstrap-theme.min.css" rel="stylesheet">
+    <link href="/css/dashboard.css" rel="stylesheet">
+</head>
+
+<body role="document">
+
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="/">Domotique</a>
+            </div>
+            <div id="navbar" class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li class="active"><a href="/">Accueil</a></li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Configuration <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="/config/relay">Relais</a></li>
+                            <li><a href="/config/temps">Températures</a></li>
+                            <li><a href="/config/scenario">Sénario</a></li>
+                            <li role="separator" class="divider"></li>
+                            <li><a href="/settings">Paramètres</a></li>
+                        </ul>
+                    </li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href="/disconnect">Déconnexion</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container theme-showcase" role="main">
+
+        <div class="row">
+            <div class="col-md-4">
+                <h1>Relais</h1>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Pin</th>
+                            <th>Nom</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for relay in relays %}
+                        <tr>
+                            <td>{{ relay.pin }}</td>
+                            <td>{{ relay.name }}</td>
+                            <td><button type="button" id="pin{{ relay.pin }}" class="btn btn-lg btn-success" onclick="sendTooglePinRequest('{{ relay.pin }}');">Allumer</button></td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            <div class="col-md-8">
+                <h1>Scénarios</h1>
+
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <h1>Températures</h1>
+                {% for temp in temps %}
+                    <p><strong>{{ temp.name }} : {{ temp.temp }} °C</strong> ({{ temp.date }})</p>
+                {% endfor %}
+                <p>Affichage : 2 jours ; 4 jours ; 1 semaine ; 2 semaines ; 1 mois ; 2 mois</p>
+                <div id="container" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+            </div>
+        </div>
+
+    </div>
+
+    <script type="text/javascript">
+        var modulo = 1;
+    </script>
+
+    <script src="/js/jquery-1.11.3.min.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
+    <script src="/js/highcharts.js"></script>
+    <script src="/js/exporting.js"></script>
+    <script src="/js/temperatures.js"></script>
+    <script src="/js/relays.js"></script>
+</body>
+</html>
